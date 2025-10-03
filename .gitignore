@@ -1,0 +1,16 @@
+# Variables de entorno
+.env
+.env.local
+.env.production
+
+# Configuración personal
+config.local.js
+js/config.js
+
+# Dependencias
+node_modules/
+npm-debug.log*
+
+# Archivos temporales
+.DS_Store
+*.log

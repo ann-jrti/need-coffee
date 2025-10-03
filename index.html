@@ -1,0 +1,119 @@
+<!doctype html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Need coffee</title>
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="description" content="Find cafes near you" />
+  </head>
+  <body class="retro">
+    <header class="app-header">
+      <h1>Need coffee</h1>
+      <p class="subtitle">Find cafes near you</p>
+
+      <div class="controls" role="region" aria-label="Controles de búsqueda">
+        <div class="control address-control">
+          <label for="address">Address/City</label>
+          <div class="address-input-row">
+            <input id="address" type="text" placeholder="Ej. Malasaña, Madrid" />
+            <button id="useLocation" class="btn" title="Obtener tu ubicación actual">Use my location</button>
+          </div>
+        </div>
+
+        <div class="control grid-3">
+          <div>
+            <label for="keyword">Keyword</label>
+            <input id="keyword" type="text" placeholder="Speciality, name..." />
+          </div>
+
+          <div>
+            <label for="radiusSelect">Radius <span id="radiusLabel">1500 m</span></label>
+            <select id="radiusSelect">
+              <option value="500">500 m</option>
+              <option value="1000">1 km</option>
+              <option value="1500" selected>1.5 km</option>
+              <option value="2000">2 km</option>
+              <option value="3000">3 km</option>
+              <option value="5000">5 km</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="sortBy">Sort by</label>
+            <select id="sortBy">
+              <option value="distance">Distance</option>
+              <option value="rating">Rating</option>
+              <option value="name">Name</option>
+            </select>
+            <label class="checkbox">
+              <input id="openNow" type="checkbox" /> Open now
+            </label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="searchBtn" class="btn primary">Search coffee</button>
+          <span id="status" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar" aria-label="Resultados">
+        <div id="placesList" class="results" tabindex="0" aria-live="polite"></div>
+      </aside>
+      <section id="map" class="map" aria-label="Mapa"></section>
+    </main>
+
+    <!-- Models -->
+    <script src="js/models/CoffeePlace.js"></script>
+    <script src="js/models/SearchCriteria.js"></script>
+    
+    <!-- Services -->
+    <script src="js/services/LocationService.js"></script>
+    <script src="js/services/MapService.js"></script>
+    <script src="js/services/PlacesService.js"></script>
+    <script src="js/services/AutocompleteService.js"></script>
+    
+    <!-- Components -->
+    <script src="js/components/SearchUIComponent.js"></script>
+    
+    <!-- Utilities -->
+    <script src="js/utils/Utils.js"></script>
+    
+    <!-- App -->
+    <script src="js/App.js"></script>
+    <script>
+      // Cargar Google Maps con API key desde el servidor
+      async function loadGoogleMaps() {
+        try {
+          const response = await fetch('/api/config');
+          const config = await response.json();
+          
+          const script = document.createElement('script');
+          script.async = true;
+          script.defer = true;
+          script.src = `https://maps.googleapis.com/maps/api/js?key=${config.googleMapsApiKey}&libraries=places,geometry&loading=async&callback=initMap`;
+          document.head.appendChild(script);
+        } catch (error) {
+          console.error('Error loading Google Maps API key:', error);
+          document.getElementById('status').textContent = 'Error: Could not load Google Maps API key.';
+        }
+      }
+
+      window.addEventListener('load', () => {
+        console.log('Loaded');
+        loadGoogleMaps();
+        
+        setTimeout(() => {
+          if (typeof google === 'undefined') {
+            console.error('Google Maps API not loaded');
+            document.getElementById('status').textContent = 'Error: Google Maps API not loaded. Please verify API key.';
+          } else {
+            console.log('Google Maps API loaded successfully');
+          }
+        }, 3000);
+      });
+    </script>
+  </body>
+</html>
