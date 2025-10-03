@@ -191,7 +191,7 @@ class SearchUIComponent {
   }
 
   createRatingStars(rating) {
-    if (!rating) return '<span class="no-rating">No reviews</span>';
+    if (!rating) return '<span class="no-rating">No rating</span>';
 
     let starsHtml = '';
     const fullStars = Math.floor(rating);

@@ -3,7 +3,7 @@
   --paper: #f5eeea;
   --ink: #222;
   --accent: #414a37;
-  --accent-2: #62af80;
+  --accent-2: #d3c1a8;
   --accent-3: #99744a;
   --muted: #6b7280;
   --radius: 18px;
@@ -23,9 +23,9 @@
 }
 
 .app-header {
-  max-width: 1100px;
+  max-width: fit-content;
   margin: 24px auto 8px;
-  padding: 16px 20px;
+  padding: 18px 90px;
   background: var(--paper);
   border: 2px solid var(--accent);
   border-radius: var(--radius);
@@ -46,6 +46,7 @@ h1 {
   display: grid;
   gap: 12px;
 }
+
 .control {
   display: grid;
   gap: 6px;
@@ -64,7 +65,8 @@ h1 {
 }
 
 .control.address-control .address-input-row input {
-  flex: 1;
+  flex: 0 1 50%;
+  min-width: 200px;
 }
 
 .control.address-control .address-input-row button {
@@ -74,22 +76,30 @@ h1 {
 
 .grid-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  gap: 16px;
+}
+
+.filters {
+  display: flex;
+  align-items: baseline;
 }
 
 label {
   font-weight: 600;
   font-size: 14px;
 }
+
 input[type="text"] {
   padding: 10px 12px;
   border-radius: 10px;
   border: 2px solid var(--accent);
   background: #fff;
 }
+
 input[type="range"] {
   width: 100%;
 }
+
 select {
   padding: 10px 12px;
   border-radius: 10px;
@@ -100,8 +110,17 @@ select {
   display: inline-flex;
   gap: 6px;
   align-items: center;
+  align-self: center;
   margin-left: 10px;
   font-weight: 500;
+}
+
+.radius-control,
+.sort-control,
+.keyword-control {
+  display: flex;
+  flex-direction: column;
+  max-width: fit-content;
 }
 
 .actions {
@@ -133,6 +152,10 @@ select {
 
 .btn:hover {
   filter: brightness(0.98);
+}
+
+.btn--accent {
+  background-color: var(--accent-2);
 }
 
 .layout {
@@ -315,8 +338,7 @@ select {
 .directions-btn {
   display: inline-block;
   padding: 6px 12px;
-  background: var(--accent-3);
-  color: #fff;
+  background: var(--accent-2);
   text-decoration: none;
   border-radius: 4px;
   font-size: 12px;
@@ -324,7 +346,13 @@ select {
 }
 
 .directions-btn:hover {
-  background: #333;
+  background: var(--accent-3);
+}
+
+
+a:visited, a:link {
+  color: inherit;
+  text-decoration: none;
 }
 
 .error-message {
@@ -406,6 +434,22 @@ select {
 }
 
 @media (max-width: 900px) {
+  .app-header {
+    max-width: 1100px;
+    padding: 10px;
+  }
+
+  .controls {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .filters {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
   .layout {
     grid-template-columns: 1fr;
   }

@@ -16,18 +16,18 @@
           <label for="address">Address/City</label>
           <div class="address-input-row">
             <input id="address" type="text" placeholder="Ej. Malasaña, Madrid" />
-            <button id="useLocation" class="btn" title="Obtener tu ubicación actual">Use my location</button>
+            <button id="useLocation" class="btn btn--accent" title="Obtener tu ubicación actual">Use my location</button>
           </div>
         </div>
 
-        <div class="control grid-3">
-          <div>
+        <div class="control grid-3 filters">
+          <div class="keyword-control">
             <label for="keyword">Keyword</label>
             <input id="keyword" type="text" placeholder="Speciality, name..." />
           </div>
 
-          <div>
-            <label for="radiusSelect">Radius <span id="radiusLabel">1500 m</span></label>
+          <div class="radius-control">
+            <label for="radiusSelect">Radius</label>
             <select id="radiusSelect">
               <option value="500">500 m</option>
               <option value="1000">1 km</option>
@@ -38,17 +38,17 @@
             </select>
           </div>
 
-          <div>
+          <div class="sort-control">
             <label for="sortBy">Sort by</label>
             <select id="sortBy">
               <option value="distance">Distance</option>
               <option value="rating">Rating</option>
               <option value="name">Name</option>
             </select>
+          </div>
             <label class="checkbox">
               <input id="openNow" type="checkbox" /> Open now
             </label>
-          </div>
         </div>
 
         <div class="actions">
