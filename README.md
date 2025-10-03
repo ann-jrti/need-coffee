@@ -1,4 +1,4 @@
-# Where Coffee ☕
+# Need Coffee ☕
 
 A web application to find coffee shops near you using Google Maps Places API.
 
@@ -28,7 +28,7 @@ A web application to find coffee shops near you using Google Maps Places API.
 ## Project structure
 
 ```
-where-coffee/
+need-coffee/
 ├── index.html
 ├── styles.css
 ├── server.js (optional)
