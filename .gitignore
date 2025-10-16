@@ -5,7 +5,6 @@
 
 # Configuración personal
 config.local.js
-js/config.js
 
 # Dependencias
 node_modules/
@@ -16,5 +15,4 @@ npm-debug.log*
 
 # Netlify
 .netlify/
-# Local Netlify folder
 *.log

@@ -81,13 +81,15 @@
     <!-- Utilities -->
     <script src="js/utils/Utils.js"></script>
     
+    <!-- Config -->
+    <script src="js/config.js"></script>
+    
     <!-- App -->
     <script src="js/App.js"></script>
     <script>
-      // Cargar Google Maps con API key desde el servidor
       async function loadGoogleMaps() {
         try {
-          const response = await fetch('/api/config');
+          const response = await fetch(`${window.CONFIG.API_URL}/api/config`);
           const config = await response.json();
           
           const script = document.createElement('script');
