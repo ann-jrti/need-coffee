@@ -15,6 +15,8 @@ class SearchUIComponent {
     this.onAddressSearchCallback = null;
     this.onUseLocationCallback = null;
     
+    this.userLocation = null;
+    
     this.initializeEvents();
   }
 
@@ -30,6 +32,8 @@ class SearchUIComponent {
       this.useLocationButton.addEventListener('click', () => {
         this.handleUseLocationClick();
       });
+    } else {
+      console.error('useLocation button not found! Check if element exists with id="useLocation"');
     }
 
     if (this.addressInput) {
@@ -59,6 +63,8 @@ class SearchUIComponent {
   handleUseLocationClick() {
     if (this.onUseLocationCallback) {
       this.onUseLocationCallback();
+    } else {
+      console.error('onUseLocationCallback not set! Check if App.js is properly setting the callback.');
     }
     if (this.addressInput) {
       this.addressInput.value = '';
@@ -99,6 +105,10 @@ class SearchUIComponent {
 
   onUseLocation(callback) {
     this.onUseLocationCallback = callback;
+  }
+
+  setUserLocation(location) {
+    this.userLocation = location;
   }
 
   showLoading() {
@@ -157,7 +167,7 @@ class SearchUIComponent {
         </div>
       </div>
       <div class="place-actions">
-        <a href="${place.getDirectionsUrl()}" target="_blank" class="directions-btn">
+        <a href="${place.getDirectionsUrl(this.userLocation)}" target="_blank" class="directions-btn">
           Get directions
         </a>
       </div>

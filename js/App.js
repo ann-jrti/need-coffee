@@ -110,6 +110,9 @@ class App {
       
       this.mapService.addUserLocationMarker(this.currentLocation);
       
+      // Actualizar ubicación en el componente UI
+      this.searchUI.setUserLocation(this.currentLocation);
+      
       if (locationData.isDefault) {
         this.showLocationInfo(locationData.message);
       } else if (locationData.accuracy) {
@@ -121,6 +124,8 @@ class App {
       this.currentLocation = new google.maps.LatLng(40.4168, -3.7038); // Madrid fallback
       this.mapService.centerAt(this.currentLocation);
       this.mapService.addUserLocationMarker(this.currentLocation);
+      // Actualizar ubicación en el componente UI
+      this.searchUI.setUserLocation(this.currentLocation);
       this.showError('Can not obtain your location. Using Madrid as fallback.');
     }
   }
@@ -231,25 +236,34 @@ class App {
       this.mapService.centerAt(this.currentLocation);
       this.mapService.addUserLocationMarker(this.currentLocation);
       
+      // Actualizar ubicación en el componente UI
+      this.searchUI.setUserLocation(this.currentLocation);
+      
       this.reset(); // clean previous markers and lists
     }
   }
 
   /* Use location handler */
   async handleUseLocation() {
+    
     try {
       const button = document.getElementById('useLocation');
       const addressInput = document.getElementById('address');
-      
-      button.textContent = 'Obtaining location...';
-      button.disabled = true;
+  
+      if (button) {
+        button.textContent = 'Obtaining location...';
+        button.disabled = true;
+      }
 
       this.locationService.clearCache();
-      
+    
       await this.getCurrentLocation();
 
-      addressInput.value = '';    
+      if (addressInput) {
+        addressInput.value = '';    
+      }
     } catch (error) {
+      console.error('Error in handleUseLocation:', error);
       const permissionStatus = await this.locationService.checkPermissionStatus();
       
       if (permissionStatus === 'denied') {
@@ -261,8 +275,10 @@ class App {
     } finally {
       // Restaurar botón
       const button = document.getElementById('useLocation');
-      button.textContent = 'Use my location';
-      button.disabled = false;
+      if (button) {
+        button.textContent = 'Use my location';
+        button.disabled = false;
+      }
     }
   }
 
@@ -289,6 +305,8 @@ class App {
     if (this.currentLocation) {
       this.mapService.centerAt(this.currentLocation);
       this.mapService.addUserLocationMarker(this.currentLocation);
+      // Asegurar que SearchUIComponent tenga la ubicación actualizada
+      this.searchUI.setUserLocation(this.currentLocation);
     }
   }
 

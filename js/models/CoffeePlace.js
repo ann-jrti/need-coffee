@@ -45,11 +45,32 @@ class CoffeePlace {
     return this.opening_hours.open_now ? 'Currently open' : 'Closed';
   }
 
-  getDirectionsUrl() {
-    if (this.place_id) {
-      return `https://www.google.com/maps/dir/?api=1&destination_place_id=${this.place_id}`;
+  getDirectionsUrl(originLocation = null) {
+    let url = 'https://www.google.com/maps/dir/?api=1';
+    
+    if (originLocation) {
+      url += '&origin=My+Location';
     }
-    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(this.vicinity)}`;
+
+    let destination = '';
+    if (this.name && this.vicinity) {
+      destination = `${this.name}, ${this.vicinity}`;
+    } else if (this.vicinity) {
+      destination = this.vicinity;
+    } else if (this.name) {
+      destination = this.name;
+    } else if (this.location) {
+
+      const lat = typeof this.location.lat === 'function' ? this.location.lat() : this.location.lat;
+      const lng = typeof this.location.lng === 'function' ? this.location.lng() : this.location.lng;
+      destination = `${lat},${lng}`;
+    }
+    
+    if (destination) {
+      url += `&destination=${encodeURIComponent(destination)}`;
+    }
+    
+    return url;
   }
 
   getGoogleMapsUrl() {

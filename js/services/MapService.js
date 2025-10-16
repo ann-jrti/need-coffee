@@ -116,12 +116,13 @@ class MapService {
   }
 
   showCoffeePlaceInfo(coffeePlace, marker) {
+    const userLocation = this.userMarker?.getPosition() || null;
     const content = `
       <div style="max-width:240px">
         <strong>${coffeePlace.name}</strong><br/>
         <div style="color:#666">${coffeePlace.vicinity}</div>
         <div style="margin:6px 0">${coffeePlace.getFormattedRating()}${coffeePlace.isOpenNow() ? " · 🟢 Open" : ""}</div>
-        <a href="${coffeePlace.getDirectionsUrl()}" target="_blank" rel="noopener">Get directions</a>
+        <a href="${coffeePlace.getDirectionsUrl(userLocation)}" target="_blank" rel="noopener">Get directions</a>
       </div>
     `;
     
