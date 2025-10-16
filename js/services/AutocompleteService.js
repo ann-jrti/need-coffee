@@ -16,7 +16,7 @@ class AutocompleteService {
 
     const defaultOptions = {
       types: ['address'],
-      componentRestrictions: { country: 'es' }, // Restricted to Spain
+      componentRestrictions: { country: ['es', 'ie'] }, // Restricted to Spain and Ireland
       fields: ['place_id', 'geometry', 'name', 'formatted_address']
     };
 
