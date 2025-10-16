@@ -13,4 +13,8 @@ npm-debug.log*
 
 # Archivos temporales
 .DS_Store
+
+# Netlify
+.netlify/
+# Local Netlify folder
 *.log

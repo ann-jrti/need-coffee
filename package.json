@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "build": "echo 'Frontend build complete'",
+    "netlify-build": "npm run build"
   },
   "dependencies": {
     "express": "^4.18.2",
